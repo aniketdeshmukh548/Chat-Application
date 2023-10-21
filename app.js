@@ -11,10 +11,7 @@ app.use(chatRoutes)
 
 app.use('/',(req,res,next)=>{
     res.send('<h1>Welcome To Chat App</h1>')
-    res.get({data})
 })
-
-
 app.listen(3000,()=>{
     console.log(`listening from port 300`)
 })

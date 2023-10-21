@@ -1,28 +1,27 @@
+const expresss = require("express");
+const fs = require("fs");
 const path=require('path')
-const express=require('express');
-
-const router=express.Router()
-
-router.get('/chats',(req,res,next)=>{
-    res.sendFile(path.join(__dirname,'../','html','chats.html'))
-})
-router.post('/send', (req, res) => {
-    //const username = req.cookies.username;
-    const message = req.body.message;
-  
-    //const data = `${username}: ${message}\n`;
-    const data = `${message}\n`;
-    console.log(data)
-    {data}
-    require('fs').appendFile('messages.txt', data, (err) => {
-      if (err) {
-        console.error(err);
-      }
-    });
-  
-    res.redirect('/');
+const router = expresss.Router();
+let arr = "";
+router.get("/chats", (req, res, next) => {
+    const displayMsg = fs.readFileSync("messages.txt");
+    res.send(
+      ` <h1>Welcome To Chats Page</h1>
+      <form action="/chats" method="POST" onsubmit="document.getElementById('username').value=localStorage.getItem('username')">
+                <label for="message">Message:</label>
+                <input type="text" id="message" name="title" required>
+                <input type="hidden" id="username" name="username" >
+                <button type="submit">Send</button>
+              </form> ${displayMsg.toString()}`
+    );
   });
-// router.post('/chats',(req,res)=>{
-//     res.redirect('/send')
-// })
-module.exports=router
+
+router.post("/chats", (req, res, next) => {
+    fs.writeFileSync("messages.txt", `${req.body.username} : ${req.body.title} `,{flag:'a'},(err)=>{
+        err?console.log(err):res.redirect("/chats");
+    })
+    res.redirect('/chats')
+    ;
+  });
+
+module.exports = router;

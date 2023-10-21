@@ -8,14 +8,6 @@ router.get('/login',(req,res,next)=>{
     
 })
 router.post('/login',(req,res)=>{
-    const {username}=req.body
-    console.log(req.body)
-    res.send(`
-    <script>
-      localStorage.setItem('username', '${username}');
-      window.location = '/';
-    </script>
-  `);
     res.redirect('/')
 })
 module.exports=router

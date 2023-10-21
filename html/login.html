@@ -11,7 +11,7 @@
             <h1>Welcome To Login Page</h1>
         </div>
         <div>
-            <form action="/login", method="post">
+            <form action="/login", method="post" onsubmit="localStorage.setItem(`username`,document.getElementById(`username`).value)">
                 <input type="text" placeholder="Username" id="username" name="username"> <br>
                 <input type="text" placeholder="Password"> <br>
                 <button type="submit">Submit</button>
